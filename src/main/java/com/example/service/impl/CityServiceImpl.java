@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.dao.AirportDao;
 import com.example.dao.CityDao;
 import com.example.model.Airport;
 import com.example.model.City;
@@ -22,11 +23,13 @@ public class CityServiceImpl implements CityService {
 
     private final CityDao cityDao;
     private final Dijkstra dijkstra;
+    private final AirportDao airportDao;
 
 
-    public CityServiceImpl(CityDao cityDao, Dijkstra dijkstra) {
+    public CityServiceImpl(CityDao cityDao, Dijkstra dijkstra, AirportDao airportDao) {
         this.cityDao = cityDao;
         this.dijkstra = dijkstra;
+        this.airportDao = airportDao;
     }
 
     @Override
@@ -50,7 +53,8 @@ public class CityServiceImpl implements CityService {
     @Override
     @Transactional(readOnly = true)
     public City findCityByName(String from) {
-        return cityDao.findByName(from);
+        String [] nameAndCountry = from.split(",") ;
+        return cityDao.findByNameAndCountry(nameAndCountry[0],nameAndCountry[1]);
     }
 
     @Override
@@ -83,6 +87,13 @@ public class CityServiceImpl implements CityService {
         for(City city:cities)
             Hibernate.initialize(city.getCityReviews());
         return cities;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public City findCityByAirportId(String from) {
+        Airport airport = airportDao.findAirportByAirportID(Integer.parseInt(from));
+        return airport.getCity();
     }
 
 }

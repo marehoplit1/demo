@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.model.Airport;
 import com.example.model.City;
 import com.example.util.ResultDto;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -26,4 +27,7 @@ public interface CityService {
 
 
     List<City> getCitiesByName(String name);
+
+    @Transactional(readOnly = true)
+    City findCityByAirportId(String from);
 }

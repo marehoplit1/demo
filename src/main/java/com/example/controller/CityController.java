@@ -69,7 +69,7 @@ public class CityController {
 
         CityDistanceResponse cityDistanceResponse = new CityDistanceResponse();
         cityDistanceResponse.setTotalPrice(min.getPrice());
-        cityDistanceResponse.setRoutes(min.getRoute().stream().map(vert -> vert.getName()).collect(Collectors.toList()));
+        cityDistanceResponse.setRoutes(min.getRoute().stream().map(vert -> cityService.findCityByAirportId(vert.getName()).toString()).collect(Collectors.toList()));
         return cityDistanceResponse;
     }
 

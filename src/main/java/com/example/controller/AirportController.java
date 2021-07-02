@@ -96,11 +96,11 @@ public class AirportController {
         City city = new City(data[2].substring(1,data[2].length()-1),data[3].substring(1,data[3].length()-1));
         city.setDescription("text");
 
-        if(cities.get(city.getName()) == null) {
-            cities.put(city.getName(),city);
+        if(cities.get(city.getName()+" "+city.getCountry()) == null) {
+            cities.put(city.getName()+" "+city.getCountry(),city);
             airport.setCity(city);
         } else {
-            airport.setCity(cities.get(city.getName()));
+            airport.setCity(cities.get(city.getName()+" "+city.getCountry()));
         }
 
         airport.setCountry(data[3].substring(1,data[3].length()-1));

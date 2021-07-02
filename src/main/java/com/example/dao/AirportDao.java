@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AirportDao extends CrudRepository<Airport, Long> {
-    Airport findAirportByAirportID(long airportId);
+    Airport findAirportByAirportID(int airportId);
 }

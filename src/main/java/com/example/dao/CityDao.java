@@ -19,5 +19,7 @@ public interface CityDao extends CrudRepository<City, Long> {
     City findCityByUuid(UUID id) ;
 
     List<City> findByNameStartingWith(String name);
+
+    City findByNameAndCountry(String name,String country);
 }
 

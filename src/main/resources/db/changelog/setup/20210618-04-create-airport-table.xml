@@ -33,7 +33,7 @@
                 <constraints  nullable="false" foreignKeyName="fk_1" references="city(id)"/>
             </column>
         </createTable>
-        <addUniqueConstraint constraintName="voucher_gateway_uuid_unique"
+        <addUniqueConstraint constraintName="airport_id_unique"
                              schemaName="public"
                              tableName="airport"
                              columnNames="airport_id"

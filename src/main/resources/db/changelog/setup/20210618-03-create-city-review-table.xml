@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="mgudelj" id="create-city_review-table">
+        <createSequence
+                incrementBy="1"
+                schemaName="public"
+                sequenceName="city_review_seq_id"
+                startValue="1" />
+
+        <createTable tableName="city_review">
+            <column name="id" type="bigserial" valueSequenceNext="city_review_seq_id">
+                <constraints  primaryKey="true" nullable="false" />
+            </column>
+            <column name="uuid" type="uuid">
+                <constraints nullable="false" />
+            </column>
+            <column name="content" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="city_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_city_review_city" references="city(id)"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_city_review_user" references="user(id)"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="city_review" indexName="city_review_uuid">
+            <column name="uuid"></column>
+        </createIndex>
+
+        <rollback>
+            <dropIndex tableName="city_review" indexName="city_review_uuid" />
+            <dropSequence sequenceName="city_review_seq_id" />
+            <dropTable tableName="city_review" />
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

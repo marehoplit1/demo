@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="mgudelj" id="create-user-table">
+        <createSequence
+                incrementBy="1"
+                schemaName="public"
+                sequenceName="user_seq_id"
+                startValue="1" />
+
+        <createTable tableName="user">
+            <column name="id" type="bigserial" valueSequenceNext="user_seq_id">
+                <constraints  primaryKey="true" nullable="false" />
+            </column>
+            <column name="uuid" type="uuid">
+                <constraints nullable="false" />
+            </column>
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="role" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createIndex tableName="user" indexName="user_uuid">
+            <column name="uuid"></column>
+        </createIndex>
+
+        <rollback>
+            <dropIndex tableName="user" indexName="user_uuid" />
+            <dropSequence sequenceName="user_seq_id" />
+            <dropTable tableName="user" />
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

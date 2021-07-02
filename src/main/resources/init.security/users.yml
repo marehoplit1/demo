@@ -1,0 +1,11 @@
+name: admin
+password: pifO4xUHqEZDA4zi
+role: ADMIN
+lastname: test
+username: admin
+---
+name: mare
+password: 7PPPsp7pNLHwi3TX
+role: USER_ROLE
+lastname: test
+username: mare

@@ -1,0 +1,4 @@
+dcc:
+  pms:
+    security:
+      users-init-file-path:  ${DCC_PMS_USERS_INIT_FILE_PATH:classpath:init.security/users.yml}

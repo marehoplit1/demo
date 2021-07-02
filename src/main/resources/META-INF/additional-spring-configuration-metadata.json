@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "change-log",
+      "type": "java.lang.String",
+      "description": "Description for change-log."
+  }
+] }

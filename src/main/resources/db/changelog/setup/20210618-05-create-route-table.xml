@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="mgudelj" id="create-route-table">
+        <createSequence
+                incrementBy="1"
+                schemaName="public"
+                sequenceName="route_seq_id"
+                startValue="1"/>
+
+        <createTable tableName="route">
+            <column name="id" type="bigserial" valueSequenceNext="route_seq_id">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source_airport_id" type="bigserial">
+                <constraints  nullable="false" foreignKeyName="fk_11" references="airport(id)"/>
+            </column>
+            <column name="target_airport_id" type="bigserial">
+                <constraints nullable="false" foreignKeyName="fk_22" references="airport(id)"/>
+            </column>
+            <column name="price" type="float">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+        <addUniqueConstraint constraintName="uk_source_airport_id_target_airport_id" tableName="route"
+                             columnNames="price,source_airport_id, target_airport_id"/>
+
+        <createIndex tableName="route" indexName="route_uuid">
+            <column name="uuid"></column>
+        </createIndex>
+
+        <rollback>
+            <dropIndex tableName="route" indexName="route_uuid"/>
+            <dropSequence sequenceName="route_seq_id"/>
+            <dropTable tableName="route"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

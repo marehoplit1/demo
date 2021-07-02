@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="mgudelj" id="create-city-table">
+        <createSequence
+                incrementBy="1"
+                schemaName="public"
+                sequenceName="city_seq_id"
+                startValue="1" />
+
+        <createTable tableName="city">
+            <column name="id" type="bigserial" valueSequenceNext="city_seq_id">
+                <constraints  primaryKey="true" nullable="false" />
+            </column>
+            <column name="uuid" type="uuid">
+                <constraints nullable="false" />
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="country" type="varchar(255)">
+                <constraints nullable="false"  />
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="false"  />
+            </column>
+        </createTable>
+        <addUniqueConstraint constraintName="uk_name_country" tableName="city"
+                             columnNames="name,country"/>
+        <createIndex tableName="city" indexName="city_uuid">
+            <column name="uuid"></column>
+        </createIndex>
+
+        <rollback>
+            <dropIndex tableName="city" indexName="city_uuid" />
+            <dropSequence sequenceName="city_seq_id" />
+            <dropTable tableName="city" />
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

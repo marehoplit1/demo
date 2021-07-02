@@ -74,7 +74,7 @@ public class AirportController {
                 var fileName = file.getOriginalFilename();
                 var is = file.getInputStream();
 
-                String path = "src/main/resources/templates/";
+                String path = "src/main/resources/";
                 Files.copy(is, Paths.get(path + fileName),
                         StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
@@ -125,6 +125,13 @@ public class AirportController {
                 new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
                         .lines()
                         .forEach(this::handleRoute);
+
+                var fileName = file.getOriginalFilename();
+                var is = file.getInputStream();
+
+                String path = "src/main/resources/";
+                Files.copy(is, Paths.get(path + fileName),
+                        StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
                 e.printStackTrace();
             }

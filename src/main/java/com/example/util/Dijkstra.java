@@ -25,7 +25,7 @@ public class Dijkstra {
         String f= "airports.txt";
         airports = new HashMap<>();
 
-        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/templates/".concat(f)));
+        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/".concat(f)));
         String s;
         while ((s = br.readLine()) != null) {
             String[] data = s.split(",");
@@ -40,7 +40,7 @@ public class Dijkstra {
 
     public void initializeEdges(String f) throws IOException {
 
-        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/static/".concat(f)));
+        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/".concat(f)));
         String s;
         int err = 0;
         int cnt = 0;
